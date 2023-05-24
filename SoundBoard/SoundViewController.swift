@@ -16,6 +16,7 @@ class SoundViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var grabarButton: UIButton!
     @IBOutlet weak var labelDuracionTotal: UILabel!
     @IBOutlet weak var labelTiempoReproduccion: UILabel!
+    @IBOutlet weak var audioSlider: UISlider!
     
     var grabarAudio:AVAudioRecorder?
     var reproducirAudio:AVAudioPlayer?
@@ -27,6 +28,8 @@ class SoundViewController: UIViewController, AVAudioPlayerDelegate {
         reproducirButton.isEnabled = false
         configurarGrabacion()
         agregarButton.isEnabled = false
+        
+        audioSlider.thumbTintColor = UIColor(cgColor: CGColor(red: 0, green: 0, blue: 0, alpha: 0.7))
     }
     
     func configurarGrabacion() {
@@ -121,4 +124,7 @@ class SoundViewController: UIViewController, AVAudioPlayerDelegate {
         navigationController!.popViewController(animated: true)
     }
 
+    @IBAction func volumeChanged(_ sender: Any) {
+        reproducirAudio?.volume = audioSlider.value
+    }
 }

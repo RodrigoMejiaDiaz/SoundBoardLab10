@@ -131,15 +131,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jvm-PD-cRo">
+                                <rect key="frame" x="18" y="458" width="357" height="31"/>
+                                <color key="minimumTrackTintColor" systemColor="labelColor"/>
+                                <connections>
+                                    <action selector="volumeChanged:" destination="Ssc-e3-gwU" eventType="valueChanged" id="eWT-G5-Lxd"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="oLp-J6-kwj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="VeQ-6Z-lRt" firstAttribute="top" secondItem="n8t-GO-iIx" secondAttribute="bottom" constant="20" id="4wU-Tq-VJs"/>
+                            <constraint firstItem="Jvm-PD-cRo" firstAttribute="top" secondItem="Tjm-ri-Sqj" secondAttribute="bottom" constant="34.333333333333314" id="5Zb-xW-dza"/>
                             <constraint firstItem="Htk-V7-cCG" firstAttribute="leading" secondItem="VeQ-6Z-lRt" secondAttribute="trailing" constant="5" id="8kp-xn-VXW"/>
                             <constraint firstItem="VeQ-6Z-lRt" firstAttribute="centerX" secondItem="oLp-J6-kwj" secondAttribute="centerX" id="90W-TV-hZM"/>
                             <constraint firstItem="oLp-J6-kwj" firstAttribute="trailing" secondItem="hmA-HT-M4x" secondAttribute="trailing" constant="20" id="CPR-3z-TEs"/>
                             <constraint firstItem="oLp-J6-kwj" firstAttribute="trailing" secondItem="zlz-bz-aIK" secondAttribute="trailing" constant="20" id="HPF-ze-80g"/>
+                            <constraint firstItem="Jvm-PD-cRo" firstAttribute="leading" secondItem="oLp-J6-kwj" secondAttribute="leading" constant="20" id="TA0-nq-h1R"/>
                             <constraint firstItem="Tjm-ri-Sqj" firstAttribute="centerX" secondItem="oLp-J6-kwj" secondAttribute="centerX" id="UAA-Jp-fXC"/>
                             <constraint firstItem="zlz-bz-aIK" firstAttribute="leading" secondItem="oLp-J6-kwj" secondAttribute="leading" constant="20" id="Z7R-1P-jkk"/>
                             <constraint firstItem="hmA-HT-M4x" firstAttribute="top" secondItem="zlz-bz-aIK" secondAttribute="bottom" constant="20" id="b0v-wY-InG"/>
@@ -148,6 +157,7 @@
                             <constraint firstItem="n8t-GO-iIx" firstAttribute="centerX" secondItem="oLp-J6-kwj" secondAttribute="centerX" id="h5E-4o-rTo"/>
                             <constraint firstItem="n8t-GO-iIx" firstAttribute="top" secondItem="oLp-J6-kwj" secondAttribute="top" constant="20" id="hDs-Ed-0f1"/>
                             <constraint firstItem="Tjm-ri-Sqj" firstAttribute="top" secondItem="hmA-HT-M4x" secondAttribute="bottom" constant="20" id="i3y-FJ-D85"/>
+                            <constraint firstItem="oLp-J6-kwj" firstAttribute="trailing" secondItem="Jvm-PD-cRo" secondAttribute="trailing" constant="20" id="lnc-T3-CcA"/>
                             <constraint firstItem="cft-Pl-3Dk" firstAttribute="top" secondItem="n8t-GO-iIx" secondAttribute="bottom" constant="42" id="miJ-Rw-RyW"/>
                             <constraint firstItem="cft-Pl-3Dk" firstAttribute="leading" secondItem="Htk-V7-cCG" secondAttribute="trailing" constant="9.6666666666666856" id="sVm-nJ-20D"/>
                             <constraint firstItem="Htk-V7-cCG" firstAttribute="top" secondItem="n8t-GO-iIx" secondAttribute="bottom" constant="42" id="sZP-Qd-vZe"/>
@@ -156,6 +166,7 @@
                     <navigationItem key="navigationItem" id="Ipg-E9-Hkx"/>
                     <connections>
                         <outlet property="agregarButton" destination="Tjm-ri-Sqj" id="dJ2-la-2mP"/>
+                        <outlet property="audioSlider" destination="Jvm-PD-cRo" id="YDU-AB-Cdq"/>
                         <outlet property="grabarButton" destination="n8t-GO-iIx" id="Ofa-nS-If0"/>
                         <outlet property="labelDuracionTotal" destination="cft-Pl-3Dk" id="am7-Yi-elU"/>
                         <outlet property="labelTiempoReproduccion" destination="Htk-V7-cCG" id="Ap4-5S-Vkw"/>
