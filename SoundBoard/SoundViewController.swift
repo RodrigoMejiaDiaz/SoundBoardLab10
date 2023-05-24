@@ -8,16 +8,19 @@
 import UIKit
 import AVFoundation
 
-class SoundViewController: UIViewController {
+class SoundViewController: UIViewController, AVAudioPlayerDelegate {
 
     @IBOutlet weak var reproducirButton: UIButton!
     @IBOutlet weak var nombreTextField: UITextField!
     @IBOutlet weak var agregarButton: UIButton!
     @IBOutlet weak var grabarButton: UIButton!
+    @IBOutlet weak var labelDuracionTotal: UILabel!
+    @IBOutlet weak var labelTiempoReproduccion: UILabel!
     
     var grabarAudio:AVAudioRecorder?
     var reproducirAudio:AVAudioPlayer?
     var audioURL:URL?
+    var timer:Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,28 +74,51 @@ class SoundViewController: UIViewController {
     @IBAction func reproducirTapped(_ sender: Any) {
         do {
             try reproducirAudio = AVAudioPlayer(contentsOf: audioURL!)
+            reproducirAudio?.delegate = self
+            let duration = Int(reproducirAudio!.duration)
+                
+                // Convierte la duración total en minutos y segundos
+                let minutesDuration = duration / 60
+                let secondsDuration = duration % 60
+            
+            // Actualiza el label con la duración total
+            labelDuracionTotal.text = String(format: "%02d:%02d", minutesDuration, secondsDuration)
+            
             reproducirAudio!.play()
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updatePlaybackTime), userInfo: nil, repeats: true)
+        
             print("Reproduciendo")
         } catch {}
         
     }
+    
+    @objc func updatePlaybackTime() {
+        guard let reproducirAudio = reproducirAudio else {
+            return
+        }
+        
+        let currentTime = reproducirAudio.currentTime
+        let minutes = Int(currentTime / 60)
+        let seconds = Int(currentTime.truncatingRemainder(dividingBy: 60))
+        
+        // Actualiza el label con el tiempo de reproducción
+        labelTiempoReproduccion.text = String(format: "%02d:%02d", minutes, seconds)
+
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        timer?.invalidate()
+        timer = nil
+    }
+    
     @IBAction func agregarTapped(_ sender: Any) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let grabacion = Grabacion(context: context)
         grabacion.nombre = nombreTextField.text
         grabacion.audio = NSData(contentsOf: audioURL!)! as Data
+        grabacion.duration = Double(reproducirAudio!.duration)
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
         navigationController!.popViewController(animated: true)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

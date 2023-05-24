@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var grabaciones:[Grabacion] = []
     var reproducirAudio:AVAudioPlayer?
+    var timer:Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +31,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
         let grabacion = grabaciones[indexPath.row]
+        
+        // Calcula la duración total del audio guardado en minutos y segundos
+            let duration = Int(grabacion.duration)
+            let minutes = duration / 60
+            let seconds = duration % 60
+            
+            // Actualiza el label de duración total en la celda
+        cell.detailTextLabel?.text = String(format: "%02d:%02d", minutes, seconds)
         cell.textLabel?.text = grabacion.nombre
+        
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
